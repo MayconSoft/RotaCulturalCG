@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Evento - Agenda Cultural CG</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Agenda Cultural CG</h1>
+        <p>Cadastre seu evento cultural</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="login.html">Entrar</a>
+            <a href="curador.html">Painel do curador</a>
+            <a href="admin.html">Administrador</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Novo evento</h2>
+
+            <p>
+                Preencha os dados abaixo para enviar seu evento
+                cultural para análise.
+            </p>
+
+            <form id="form-evento">
+
+                <div>
+                    <label for="nome">Nome do evento:</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Ex.: Festival Cultural"
+                        required
+                        maxlength="120"
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="descricao">Descrição:</label>
+                    <textarea
+                        id="descricao"
+                        name="descricao"
+                        rows="4"
+                        placeholder="Descreva o evento"
+                        required
+                        maxlength="2000"
+                    ></textarea>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="categoria">Categoria:</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="Música">Música</option>
+                        <option value="Gastronomia">Gastronomia</option>
+                        <option value="Arte">Arte</option>
+                        <option value="Teatro">Teatro</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="data">Data:</label>
+                    <input
+                        type="date"
+                        id="data"
+                        name="data"
+                        required
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="horario">Horário:</label>
+                    <input
+                        type="time"
+                        id="horario"
+                        name="horario"
+                        required
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="local">Local:</label>
+                    <input
+                        type="text"
+                        id="local"
+                        name="local"
+                        placeholder="Endereço ou local do evento"
+                        required
+                        maxlength="200"
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="imagem">Link da imagem do evento:</label>
+                    <input
+                        type="url"
+                        id="imagem"
+                        name="imagem"
+                        placeholder="https://exemplo.com/imagem.jpg"
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="ingresso">Informações sobre o ingresso:</label>
+                    <input
+                        type="text"
+                        id="ingresso"
+                        name="ingresso"
+                        placeholder="Ex.: Entrada gratuita"
+                        maxlength="200"
+                    >
+                </div>
+
+                <br>
+
+                <button type="submit">Enviar para aprovação</button>
+
+            </form>
+
+            <p id="mensagem" role="status" aria-live="polite"></p>
+
+            <a href="eventos.html">Voltar para os eventos</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>Agenda Cultural CG - Campo Grande, MS</p>
+    </footer>
+
+    <script>
+        const formulario = document.getElementById("form-evento");
+        const mensagem = document.getElementById("mensagem");
+
+        // Impede o cadastro de uma data anterior à data atual.
+        const campoData = document.getElementById("data");
+        const hoje = new Date();
+        const ano = hoje.getFullYear();
+        const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+        const dia = String(hoje.getDate()).padStart(2, "0");
+
+        campoData

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Curador - Agenda Cultural CG</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Agenda Cultural CG</h1>
+        <p>Painel do curador</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="eventos.html">Eventos públicos</a>
+            <a href="cadastro-evento.html">Cadastrar evento</a>
+            <a href="admin.html">Administrador</a>
+            <a href="login.html">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Eventos aguardando análise</h2>
+            <p>
+                Analise as informações enviadas pelos organizadores
+                antes de tomar uma decisão.
+            </p>
+        </section>
+
+        <section id="lista-pendentes">
+
+            <article class="evento-pendente">
+                <h3>Festival Cultural de Campo Grande</h3>
+
+                <p><strong>Organizador:</strong> João Silva</p>
+                <p><strong>Categoria:</strong> Música e Cultura</p>
+                <p><strong>Data:</strong> 15/11/2026</p>
+                <p><strong>Horário:</strong> 18h</p>
+                <p><strong>Local:</strong> Parque das Nações Indígenas</p>
+                <p><strong>Entrada:</strong> Gratuita</p>
+                <p>
+                    <strong>Status:</strong>
+                    <span class="status">Pendente</span>
+                </p>
+
+                <div class="acoes">
+                    <button type="button" onclick="aprovarEvento(this)">
+                        Aprovar evento
+                    </button>
+
+                    <button type="button" onclick="mostrarReprovacao(this)">
+                        Reprovar evento
+                    </button>
+                </div>
+
+                <div class="campo-reprovacao" hidden>
+                    <label>Motivo da reprovação:</label>
+
+                    <textarea
+                        class="motivo"
+                        rows="3"
+                        placeholder="Explique por que o evento foi reprovado."
+                    ></textarea>
+
+                    <button type="button" onclick="confirmarReprovacao(this)">
+                        Confirmar reprovação
+                    </button>
+
+                    <button type="button" onclick="cancelarReprovacao(this)">
+                        Cancelar
+                    </button>
+                </div>
+
+                <p class="resultado" role="status" aria-live="polite"></p>
+            </article>
+
+            <article class="evento-pendente">
+                <h3>Feira Gastronômica</h3>
+
+                <p><strong>Organizador:</strong> Maria Souza</p>
+                <p><strong>Categoria:</strong> Gastronomia</p>
+                <p><strong>Data:</strong> 20/11/2026</p>
+                <p><strong>Local:</strong> Feira Central</p>
+                <p><strong>Entrada:</strong> Gratuita</p>
+                <p>
+                    <strong>Status:</strong>
+                    <span class="status">Pendente</span>
+                </p>
+
+                <div class="acoes">
+                    <button type="button" onclick="aprovarEvento(this)">
+                        Aprovar evento
+                    </button>
+
+                    <button type="button" onclick="mostrarReprovacao(this)">
+                        Reprovar evento
+                    </button>
+                </div>
+
+                <div class="campo-reprovacao" hidden>
+                    <label>Motivo da reprovação:</label>
+
+                    <textarea
+                        class="motivo"
+                        rows="3"
+                        placeholder="Explique por que o evento foi reprovado."
+                    ></textarea>
+
+                    <button type="button" onclick="confirmarReprovacao(this)">
+                        Confirmar reprovação
+                    </button>
+
+                    <button type="button" onclick="cancelarReprovacao(this)">
+                        Cancelar
+                    </button>
+                </div>
+
+                <p class="resultado" role="status" aria-live="polite"></p>
+            </article>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Agenda Cultural CG - Campo Grande, MS</p>
+    </footer>
+
+    <script>
+        function aprovarEvento(botao) {
+            const artigo = botao.closest(".evento-pendente");
+            const status = artigo.querySelector(".status");
+
+            if (status.textContent !== "Pendente") {
+                return;
+            }
+
+            status.textContent = "Aprovado";
+
+            artigo.querySelector(".resultado").textContent =
+                "Evento aprovado! (Demonstração)";
+
+            finalizarAnalise(artigo);
+        }
+
+        function mostrarReprovacao(botao) {
+            const artigo = botao.closest(".evento-pendente");
+
+            if (artigo.querySelector(".status").textContent !== "Pendente") {
+                return;
+            }
+
+            artigo.querySelector(".campo-reprovacao").hidden = false;
+            artigo.querySelector(".motivo").focus();
+        }
+
+        function confirmarReprovacao(botao) {
+            const artigo = botao.closest(".evento-pendente");
+            const status = artigo.querySelector(".status");
+            const campoMotivo = artigo.querySelector(".motivo");
+            const motivo = campoMotivo.value.trim();
+
+            if (status.textContent !== "Pendente") {
+                return;
+            }
+
+            if (motivo === "") {
+                alert("Informe o motivo da reprovação.");
+                campoMotivo.focus();
+                return;
+            }
+
+            status.textContent = "Reprovado";
+
+            artigo.querySelector(".resultado").textContent =
+                "Motivo da reprovação: " + motivo;
+
+            finalizarAnalise(artigo);
+        }
+
+        function cancelarReprovacao(botao) {
+            const artigo = botao.closest(".evento-pendente");
+
+            artigo.querySelector(".campo-reprovacao").hidden = true;
+            artigo.querySelector(".motivo").value = "";
+        }
+
+        function finalizarAnalise(artigo) {
+            artigo.querySelector(".campo-reprovacao").hidden = true;
+
+            artigo.querySelectorAll("button").forEach(function(botao) {
+                botao.disabled = true;
+            });
+        }
+    </script>
+
+</body>
+</html>

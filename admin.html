@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Agenda Cultural CG</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Agenda Cultural CG</h1>
+        <p>Painel administrativo</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="eventos.html">Eventos públicos</a>
+            <a href="cadastro-evento.html">Cadastrar evento</a>
+            <a href="curador.html">Painel do curador</a>
+            <a href="login.html">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Bem-vindo, administrador!</h2>
+            <p>Gerencie as categorias, os curadores e acompanhe os eventos.</p>
+        </section>
+
+        <section>
+            <h2>Gerenciar categorias</h2>
+
+            <form id="formCategoria">
+                <label for="categoria">Nome da categoria:</label>
+                <input
+                    type="text"
+                    id="categoria"
+                    placeholder="Ex.: Teatro"
+                    maxlength="60"
+                    required
+                >
+
+                <button type="submit">Adicionar categoria</button>
+            </form>
+
+            <ul id="listaCategorias">
+                <li>
+                    Música
+                    <button type="button" class="remover">Remover</button>
+                </li>
+                <li>
+                    Gastronomia
+                    <button type="button" class="remover">Remover</button>
+                </li>
+                <li>
+                    Arte
+                    <button type="button" class="remover">Remover</button>
+                </li>
+                <li>
+                    Teatro
+                    <button type="button" class="remover">Remover</button>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Gerenciar curadores</h2>
+
+            <form id="formCurador">
+                <label for="nomeCurador">Nome do curador:</label>
+                <input
+                    type="text"
+                    id="nomeCurador"
+                    placeholder="Nome completo"
+                    maxlength="100"
+                    required
+                >
+
+                <br><br>
+
+                <label for="emailCurador">E-mail:</label>
+                <input
+                    type="email"
+                    id="emailCurador"
+                    placeholder="curador@email.com"
+                    required
+                >
+
+                <br><br>
+
+                <button type="submit">Cadastrar curador</button>
+            </form>
+
+            <ul id="listaCuradores">
+                <li>
+                    Maria Souza — maria@email.com
+                    <button type="button" class="remover">Remover</button>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Resumo dos eventos</h2>
+
+            <article class="evento">
+                <h3>Festival Cultural de Campo Grande</h3>
+                <p>Data: 15/11/2026</p>
+                <p>Status: Aguardando análise</p>
+            </article>
+
+            <article class="evento">
+                <h3>Feira Gastronômica</h3>
+                <p>Data: 20/11/2026</p>
+                <p>Status: Aguardando análise</p>
+            </article>
+
+            <article class="evento">
+                <h3>Mostra de Arte Regional</h3>
+                <p>Data: 25/11/2026</p>
+                <p>Status: Aguardando análise</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>Agenda Cultural CG - Campo Grande, MS</p>
+    </footer>
+
+    <script>
+        const formCategoria = document.getElementById("formCategoria");
+        const listaCategorias = document.getElementById("listaCategorias");
+
+        formCategoria.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const campo = document.getElementById("categoria");
+            const nome = campo.value.trim();
+
+            if (nome === "") {
+                alert("Digite o nome da categoria.");
+                return;
+            }
+
+            // Verifica se a categoria já existe.
+            const categoriasExistentes = Array.from(
+                listaCategorias.querySelectorAll("li")
+            ).map(function(item) {
+                return item.firstChild.textContent.trim().toLowerCase();
+            });
+
+            if (categoriasExistentes.includes(nome.toLowerCase())) {
+                alert("Essa categoria já está cadastrada.");
+                return;
+            }
+
+            const item = document.createElement("li");
+            item.appendChild(document.createTextNode(nome + " "));
+
+            const botaoRemover = criarBotaoRemover();
+            item.appendChild(botaoRemover);
+
+            listaCategorias.appendChild(item);
+            campo.value = "";
+        });
+
+        const formCurador = document.getElementById("formCurador");
+        const listaCuradores = document.getElementById("listaCuradores");
+
+        formCurador.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById("nomeCurador").value.trim();
+            const email = document.getElementById("emailCurador")
+                .value.trim();
+
+            if (nome === "" || email === "") {
+                alert("Preencha o nome e o e-mail do curador.");
+                return;
+            }
+
+            const emailsExistentes = Array.from(
+                listaCuradores.querySelectorAll("li")
+            ).map(function(item) {
+                return item.textContent
+                    .replace("Remover", "")
+                    .split("—")[1]
+                    ?.trim()
+                    .toLowerCase();
+            });
+
+            if (emailsExistentes.includes(email.toLowerCase())) {
+                alert("Esse e-mail já está cadastrado.");
+                return;
+            }
+
+            const item = document.createElement("li");
+            item.appendChild(
+                document.createTextNode(nome + " — " + email + " ")
+            );
+
+            const botaoRemover = criarBotaoRemover();
+            item.appendChild(botaoRemover);
+
+            listaCuradores.appendChild(item);
+            formCurador.reset();
+        });
+
+        function criarBotaoRemover() {
+            const botao = document.createElement("button");
+
+            botao.type = "button";
+            botao.className = "remover";
+            botao.textContent = "Remover";
+
+            botao.addEventListener("click", function() {
+                const confirmar = window.confirm(
+                    "Deseja realmente remover este registro?"
+                );
+
+                if (confirmar) {
+                    botao.closest("li").remove();
+                }
+            });
+
+            return botao;
+        }
+
+        // Ativa os botões de remoção dos registros iniciais.
+        document.querySelectorAll(".remover").forEach(function(botao) {
+            botao.addEventListener("click", function() {
+                const confirmar = window.confirm(
+                    "Deseja realmente remover este registro?"
+                );
+
+                if (confirmar) {
+                    botao.closest("li").remove();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

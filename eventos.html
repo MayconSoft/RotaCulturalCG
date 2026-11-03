@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - Agenda Cultural CG</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Agenda Cultural CG</h1>
+        <p>Encontre eventos culturais em Campo Grande!</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="#lista-eventos">Lista de eventos</a>
+            <a href="cadastro-evento.html">Cadastrar evento</a>
+            <a href="curador.html">Painel do curador</a>
+            <a href="admin.html">Administrador</a>
+            <a href="login.html">Entrar</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Todos os eventos</h2>
+            <p>
+                Encontre shows, feiras, festivais e outras atividades
+                culturais de Campo Grande.
+            </p>
+
+            <div class="filtros">
+                <label for="categoria">Categoria:</label>
+
+                <select id="categoria">
+                    <option value="todos">Todas as categorias</option>
+                    <option value="musica">Música</option>
+                    <option value="gastronomia">Gastronomia</option>
+                    <option value="arte">Arte</option>
+                </select>
+
+                <label for="data">Data:</label>
+                <input type="date" id="data">
+
+                <button type="button" id="botaoFiltrar">
+                    Filtrar eventos
+                </button>
+
+                <button type="button" id="botaoLimpar">
+                    Limpar filtros
+                </button>
+            </div>
+        </section>
+
+        <section id="lista-eventos">
+            <h2>Eventos disponíveis</h2>
+
+            <article class="evento"
+                     data-categoria="musica"
+                     data-data="2026-11-15">
+
+                <h3>Festival Cultural de Campo Grande</h3>
+                <p>Data: 15/11/2026</p>
+                <p>Local: Parque das Nações Indígenas</p>
+                <p>Entrada gratuita</p>
+
+                <a href="detalhes-evento.html">Ver detalhes</a>
+            </article>
+
+            <article class="evento"
+                     data-categoria="gastronomia"
+                     data-data="2026-11-20">
+
+                <h3>Feira Gastronômica</h3>
+                <p>Data: 20/11/2026</p>
+                <p>Local: Feira Central</p>
+                <p>Entrada gratuita</p>
+
+                <a href="detalhes-evento.html">Ver detalhes</a>
+            </article>
+
+            <article class="evento"
+                     data-categoria="arte"
+                     data-data="2026-11-25">
+
+                <h3>Mostra de Arte Regional</h3>
+                <p>Data: 25/11/2026</p>
+                <p>Local: Orla Morena</p>
+                <p>Entrada gratuita</p>
+
+                <a href="detalhes-evento.html">Ver detalhes</a>
+            </article>
+
+            <p id="mensagem-vazia" hidden>
+                Nenhum evento encontrado com esses filtros.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Agenda Cultural CG - Campo Grande, MS</p>
+    </footer>
+
+    <script>
+        const campoCategoria = document.getElementById("categoria");
+        const campoData = document.getElementById("data");
+        const botaoFiltrar = document.getElementById("botaoFiltrar");
+        const botaoLimpar = document.getElementById("botaoLimpar");
+        const mensagemVazia = document.getElementById("mensagem-vazia");
+
+        function filtrarEventos() {
+            const categoriaSelecionada = campoCategoria.value;
+            const dataSelecionada = campoData.value;
+            const eventos = document.querySelectorAll(".evento");
+
+            let encontrados = 0;
+
+            eventos.forEach(function(evento) {
+                const categoriaEvento = evento.dataset.categoria;
+                const dataEvento = evento.dataset.data;
+
+                const correspondeCategoria =
+                    categoriaSelecionada === "todos" ||
+                    categoriaSelecionada === categoriaEvento;
+
+                const correspondeData =
+                    dataSelecionada === "" ||
+                    dataSelecionada === dataEvento;
+
+                if (correspondeCategoria && correspondeData) {
+                    evento.hidden = false;
+                    encontrados++;
+                } else {
+                    evento.hidden = true;
+                }
+            });
+
+            mensagemVazia.hidden = encontrados > 0;
+        }
+
+        function

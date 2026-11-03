@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar - Agenda Cultural CG</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Agenda Cultural CG</h1>
+        <p>Acesse sua conta</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="cadastro-evento.html">Cadastrar evento</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Entrar na plataforma</h2>
+
+            <p>
+                Entre para acessar as funcionalidades da Agenda Cultural CG.
+            </p>
+
+            <form id="form-login">
+                <div>
+                    <label for="email">E-mail:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="senha">Senha:</label>
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <br>
+
+                <button type="submit">Entrar</button>
+            </form>
+
+            <p id="mensagem" role="status" aria-live="polite"></p>
+
+            <p>
+                Ainda não tem uma conta?
+                <a href="cadastro-evento.html">Cadastre um evento</a>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Agenda Cultural CG - Campo Grande, MS</p>
+    </footer>
+
+    <script>
+        const formulario = document.getElementById("form-login");
+        const mensagem = document.getElementById("mensagem");
+
+        formulario.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            mensagem.textContent =
+                "Esta é uma demonstração. A autenticação será implementada na versão final.";
+        });
+    </script>
+
+</body>
+</html>
