@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar conta - Agenda Cultural CG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="marca">
+            <img src="img/logo.svg" alt="" class="logo">
+            <h1>Agenda Cultural <span>CG</span></h1>
+        </a>
+        <p>Crie sua conta</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="cadastro-evento.html">Cadastrar evento</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Criar conta</h2>
+
+            <p>
+                Crie sua conta para participar da Agenda Cultural CG.
+            </p>
+
+            <form id="form-cadastro-usuario">
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Digite seu nome"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="email">E-mail:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="senha">Senha:</label>
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Crie uma senha"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="confirmar-senha">Confirmar senha:</label>
+                    <input
+                        type="password"
+                        id="confirmar-senha"
+                        name="confirmar-senha"
+                        placeholder="Repita a senha"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <br>
+
+                <button type="submit">Criar conta</button>
+            </form>
+
+            <p id="mensagem" role="status" aria-live="polite"></p>
+
+            <p>
+                Já tem uma conta?
+                <a href="login.html">Entrar</a>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Agenda Cultural CG - Campo Grande, MS</p>
+    </footer>
+
+    <script>
+        const formulario = document.getElementById("form-cadastro-usuario");
+        const mensagem = document.getElementById("mensagem");
+
+        formulario.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            if (document.getElementById("senha").value !==
+                document.getElementById("confirmar-senha").value) {
+                mensagem.textContent = "As senhas não são iguais. Tente novamente.";
+                return;
+            }
+
+            // Demonstração (só front-end): a conta não é salva, apenas simula o login.
+            try { sessionStorage.setItem("usuarioLogado", "true"); } catch (e) {}
+            window.location.href = "index.html";
+        });
+    </script>
+
+</body>
+</html>

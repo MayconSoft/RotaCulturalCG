@@ -4,20 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Evento - Agenda Cultural CG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml">
 </head>
 <body>
 
     <header>
-        <h1>Agenda Cultural CG</h1>
+        <a href="index.html" class="marca">
+            <img src="img/logo.svg" alt="" class="logo">
+            <h1>Agenda Cultural <span>CG</span></h1>
+        </a>
         <p>Cadastre seu evento cultural</p>
 
         <nav>
             <a href="index.html">Início</a>
             <a href="eventos.html">Eventos</a>
             <a href="login.html">Entrar</a>
-            <a href="curador.html">Painel do curador</a>
-            <a href="admin.html">Administrador</a>
+            <a href="login-admin.html">Administrador</a>
         </nav>
     </header>
 
@@ -161,4 +167,17 @@
         const mes = String(hoje.getMonth() + 1).padStart(2, "0");
         const dia = String(hoje.getDate()).padStart(2, "0");
 
-        campoData
+        campoData.min = ano + "-" + mes + "-" + dia;
+
+        formulario.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            mensagem.textContent =
+                "Evento enviado! Ele será publicado após a aprovação do curador.";
+            formulario.reset();
+        });
+    </script>
+    <script src="js/sessao.js"></script>
+
+</body>
+</html>

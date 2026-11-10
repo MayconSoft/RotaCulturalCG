@@ -1,96 +1,620 @@
+/* ==========================================================
+   Agenda Cultural CG — folha de estilos
+   ========================================================== */
+
+:root {
+    --roxo-escuro: #1e1b4b;
+    --roxo: #312e81;
+    --indigo: #4f46e5;
+    --indigo-escuro: #3730a3;
+    --lilas: #c4b5fd;
+    --amarelo: #fbbf24;
+    --laranja: #f97316;
+    --verde: #16a34a;
+    --vermelho: #dc2626;
+
+    --fundo: #f5f4fb;
+    --superficie: #ffffff;
+    --texto: #1f1d36;
+    --texto-suave: #5b5a72;
+    --borda: #e2e0f0;
+
+    --raio: 14px;
+    --sombra: 0 4px 18px rgba(30, 27, 75, 0.08);
+    --sombra-forte: 0 14px 34px rgba(30, 27, 75, 0.16);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
-    color: #252538;
-    line-height: 1.6;
+[hidden] {
+    display: none !important;
 }
 
+body {
+    font-family: "Poppins", Arial, sans-serif;
+    background-color: var(--fundo);
+    color: var(--texto);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ---------- Cabeçalho ---------- */
+
 header {
-    background-color: #312e81;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 85% -20%, rgba(249, 115, 22, 0.45), transparent 45%),
+        radial-gradient(circle at 10% 120%, rgba(147, 51, 234, 0.5), transparent 50%),
+        linear-gradient(135deg, var(--roxo-escuro), var(--roxo));
     color: white;
-    padding: 30px 8%;
+    padding: 28px 8% 0;
+}
+
+.marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.logo {
+    width: 54px;
+    height: 54px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.marca:hover .logo {
+    transform: rotate(-8deg) scale(1.06);
 }
 
 header h1 {
-    font-size: 32px;
-    margin-bottom: 5px;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+header h1 span {
+    color: var(--amarelo);
+}
+
+header > p {
+    margin-top: 8px;
+    color: #ddd6fe;
+    font-size: 16px;
 }
 
 header nav {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 22px;
+    padding-bottom: 14px;
 }
 
 header nav a {
-    color: white;
+    color: #ede9fe;
     text-decoration: none;
-    margin-right: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 999px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-header nav a:hover {
-    color: #c4b5fd;
+header nav a:hover,
+header nav a:focus-visible {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: white;
 }
+
+/* ---------- Conteúdo ---------- */
 
 main {
+    flex: 1;
+    width: 100%;
     max-width: 1100px;
-    margin: 35px auto;
+    margin: 40px auto;
     padding: 0 20px;
 }
 
 section {
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 h2 {
-    margin-bottom: 15px;
-    color: #312e81;
+    position: relative;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    color: var(--roxo);
+    font-size: 26px;
+    font-weight: 700;
 }
 
-#eventos {
+h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 48px;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--amarelo), var(--laranja));
+}
+
+h3 {
+    color: var(--roxo);
+    margin: 22px 0 10px;
+}
+
+section > p {
+    color: var(--texto-suave);
+    max-width: 700px;
+}
+
+/* ---------- Grade de eventos ---------- */
+
+#eventos,
+#lista-eventos,
+#lista-pendentes,
+.grade-eventos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
 }
 
-#eventos h2 {
+#eventos > h2,
+#lista-eventos > h2,
+.grade-eventos > h2,
+#mensagem-vazia {
     grid-column: 1 / -1;
 }
 
+#lista-eventos > h2,
+.grade-eventos > h2 {
+    margin-bottom: 0;
+}
+
+#mensagem-vazia {
+    text-align: center;
+    padding: 30px;
+    background: var(--superficie);
+    border: 2px dashed var(--borda);
+    border-radius: var(--raio);
+    color: var(--texto-suave);
+}
+
+/* ---------- Cartões ---------- */
+
 article {
-    background-color: white;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--superficie);
     padding: 22px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+article:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-forte);
+}
+
+article .capa {
+    width: calc(100% + 44px);
+    max-width: none;
+    margin: -22px -22px 18px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+article:hover .capa {
+    transform: scale(1.03);
 }
 
 article h3 {
-    color: #312e81;
-    margin-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 19px;
+    line-height: 1.3;
 }
 
-article a {
+article p {
+    color: var(--texto-suave);
+    font-size: 15px;
+}
+
+article p strong {
+    color: var(--texto);
+}
+
+article > a {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+article > p:last-of-type {
+    margin-bottom: 14px;
+}
+
+/* ---------- Botões e links de ação ---------- */
+
+button,
+article > a,
+section > a {
     display: inline-block;
-    margin-top: 12px;
-    padding: 9px 15px;
-    background-color: #4f46e5;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--indigo);
     color: white;
     text-decoration: none;
-    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
 }
 
-article a:hover {
-    background-color: #3730a3;
+button:hover,
+article > a:hover,
+section > a:hover {
+    background-color: var(--indigo-escuro);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
 }
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--amarelo);
+    outline-offset: 2px;
+}
+
+button:disabled {
+    background-color: #c7c6d6;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+section > a {
+    margin-top: 20px;
+    background-color: transparent;
+    color: var(--indigo);
+    border: 2px solid var(--indigo);
+}
+
+section > a:hover {
+    background-color: var(--indigo);
+    color: white;
+}
+
+section p a {
+    color: var(--indigo);
+    font-weight: 600;
+}
+
+/* ---------- Formulários ---------- */
+
+form {
+    background: var(--superficie);
+    padding: 28px;
+    margin-top: 20px;
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    max-width: 640px;
+}
+
+form br {
+    display: none;
+}
+
+form > div {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--roxo);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--texto);
+    padding: 11px 14px;
+    background-color: #faf9ff;
+    border: 1.5px solid var(--borda);
+    border-radius: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--indigo);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+}
+
+textarea {
+    resize: vertical;
+}
+
+form button[type="submit"] {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, var(--indigo), #7c3aed);
+}
+
+/* Formulários do painel admin (sem divs entre os campos) */
+#formCategoria input,
+#formCurador input {
+    margin-bottom: 16px;
+}
+
+#mensagem,
+.resultado {
+    margin-top: 14px;
+    font-weight: 500;
+    color: var(--verde);
+}
+
+/* ---------- Filtros ---------- */
+
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px 14px;
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--superficie);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+}
+
+.filtros label {
+    margin-bottom: 0;
+    align-self: center;
+}
+
+.filtros select,
+.filtros input {
+    width: auto;
+    min-width: 180px;
+}
+
+#botaoLimpar {
+    background-color: transparent;
+    color: var(--indigo);
+    box-shadow: inset 0 0 0 2px var(--indigo);
+}
+
+#botaoLimpar:hover {
+    background-color: #eef2ff;
+}
+
+/* ---------- Listas (admin) ---------- */
+
+#listaCategorias,
+#listaCuradores {
+    list-style: none;
+    margin-top: 18px;
+    max-width: 640px;
+    display: grid;
+    gap: 10px;
+}
+
+#listaCategorias li,
+#listaCuradores li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--superficie);
+    border-left: 4px solid var(--amarelo);
+    border-radius: 10px;
+    box-shadow: var(--sombra);
+}
+
+button.remover {
+    padding: 6px 12px;
+    font-size: 13px;
+    background-color: #fee2e2;
+    color: var(--vermelho);
+}
+
+button.remover:hover {
+    background-color: var(--vermelho);
+    color: white;
+    box-shadow: none;
+}
+
+/* ---------- Painel do curador ---------- */
+
+.status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.acoes button:first-child {
+    background-color: var(--verde);
+}
+
+.acoes button:first-child:hover {
+    background-color: #15803d;
+}
+
+.acoes button:last-child {
+    background-color: transparent;
+    color: var(--vermelho);
+    box-shadow: inset 0 0 0 2px var(--vermelho);
+}
+
+.acoes button:last-child:hover {
+    background-color: var(--vermelho);
+    color: white;
+}
+
+.acoes button:disabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    box-shadow: none;
+}
+
+.campo-reprovacao {
+    margin-top: 16px;
+    padding: 14px;
+    background: #fef2f2;
+    border-radius: 10px;
+}
+
+.campo-reprovacao textarea {
+    margin-bottom: 10px;
+}
+
+.campo-reprovacao button {
+    margin: 4px 6px 0 0;
+}
+
+/* ---------- Página de detalhes ---------- */
+
+.banner {
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-forte);
+    margin: 10px 0 24px;
+}
+
+/* ---------- Rodapé ---------- */
 
 footer {
-    background-color: #312e81;
-    color: white;
+    background-color: var(--roxo-escuro);
+    color: #c7c3f0;
     text-align: center;
-    padding: 20px;
-    margin-top: 40px;
+    padding: 24px;
+    font-size: 14px;
+    border-top: 4px solid var(--amarelo);
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 600px) {
+    header {
+        padding: 22px 16px 0;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .logo {
+        width: 44px;
+        height: 44px;
+    }
+
+    main {
+        margin: 28px auto;
+        padding: 0 16px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    .filtros select,
+    .filtros input,
+    .filtros button {
+        width: 100%;
+    }
+}
+
+/* ---------- Perfil do usuário logado ---------- */
+
+.perfil-usuario {
+    position: absolute;
+    top: 24px;
+    right: 8%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.foto-perfil {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    background: white;
+}
+
+.perfil-usuario a {
+    color: #ede9fe;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 999px;
+}
+
+.perfil-usuario a:hover,
+.perfil-usuario a:focus-visible {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .perfil-usuario {
+        top: 16px;
+        right: 5%;
+    }
 }

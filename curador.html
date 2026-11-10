@@ -4,20 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Curador - Agenda Cultural CG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml">
 </head>
 <body>
 
+    <script>
+        // Área restrita: só acessa quem fez login de administrador.
+        try {
+            if (sessionStorage.getItem("adminLogado") !== "true") {
+                window.location.replace("login-admin.html");
+            }
+        } catch (e) {
+            window.location.replace("login-admin.html");
+        }
+    </script>
+
     <header>
-        <h1>Agenda Cultural CG</h1>
+        <a href="index.html" class="marca">
+            <img src="img/logo.svg" alt="" class="logo">
+            <h1>Agenda Cultural <span>CG</span></h1>
+        </a>
         <p>Painel do curador</p>
 
         <nav>
             <a href="index.html">Início</a>
             <a href="eventos.html">Eventos públicos</a>
             <a href="cadastro-evento.html">Cadastrar evento</a>
-            <a href="admin.html">Administrador</a>
-            <a href="login.html">Sair</a>
+            <a href="admin.html">Painel do administrador</a>
+            <a href="login-admin.html" id="sair-admin">Sair</a>
         </nav>
     </header>
 
@@ -33,13 +51,14 @@
         <section id="lista-pendentes">
 
             <article class="evento-pendente">
+                <img src="img/festival.jpg" alt="Show com fogos de artifício no palco do festival" class="capa">
                 <h3>Festival Cultural de Campo Grande</h3>
 
                 <p><strong>Organizador:</strong> João Silva</p>
                 <p><strong>Categoria:</strong> Música e Cultura</p>
-                <p><strong>Data:</strong> 15/11/2026</p>
+                <p><strong>Data:</strong> 08/11/2026</p>
                 <p><strong>Horário:</strong> 18h</p>
-                <p><strong>Local:</strong> Parque das Nações Indígenas</p>
+                <p><strong>Local:</strong> Parque Laucídio Coelho</p>
                 <p><strong>Entrada:</strong> Gratuita</p>
                 <p>
                     <strong>Status:</strong>
@@ -78,6 +97,7 @@
             </article>
 
             <article class="evento-pendente">
+                <img src="img/gastronomia.jpg" alt="Barraca de comida em feira gastronômica" class="capa">
                 <h3>Feira Gastronômica</h3>
 
                 <p><strong>Organizador:</strong> Maria Souza</p>
@@ -196,5 +216,10 @@
         }
     </script>
 
+    <script>
+        document.getElementById("sair-admin").addEventListener("click", function() {
+            try { sessionStorage.removeItem("adminLogado"); } catch (e) {}
+        });
+    </script>
 </body>
 </html>

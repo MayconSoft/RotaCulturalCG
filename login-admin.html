@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login do Administrador - Agenda Cultural CG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+</head>
+<body>
+
+    <script>
+        // Se já estiver logado como administrador, vai direto para o painel.
+        try {
+            if (sessionStorage.getItem("adminLogado") === "true") {
+                window.location.replace("admin.html");
+            }
+        } catch (e) {}
+    </script>
+
+    <header>
+        <a href="index.html" class="marca">
+            <img src="img/logo.svg" alt="" class="logo">
+            <h1>Agenda Cultural <span>CG</span></h1>
+        </a>
+        <p>Área restrita</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="cadastro-evento.html">Cadastrar evento</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Login do administrador</h2>
+
+            <p>
+                Acesse o painel administrativo da Agenda Cultural CG.
+            </p>
+
+            <form id="form-login-admin">
+                <div>
+                    <label for="email">E-mail:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite o e-mail do administrador"
+                        autocomplete="email"
+                    >
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="senha">Senha:</label>
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <br>
+
+                <button type="submit">Entrar como administrador</button>
+            </form>
+
+            <p id="mensagem" role="status" aria-live="polite"></p>
+
+            <p><a href="login.html">Voltar ao login de usuário</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Agenda Cultural CG - Campo Grande, MS</p>
+    </footer>
+
+    <script>
+        document.getElementById("form-login-admin").addEventListener("submit", function(event) {
+            event.preventDefault();
+            // Demonstração (só front-end): qualquer e-mail/senha é aceito.
+            try { sessionStorage.setItem("adminLogado", "true"); } catch (e) {}
+            window.location.href = "admin.html";
+        });
+    </script>
+
+</body>
+</html>

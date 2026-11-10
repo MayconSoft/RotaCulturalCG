@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entrar - Agenda Cultural CG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml">
 </head>
 <body>
 
     <header>
-        <h1>Agenda Cultural CG</h1>
+        <a href="index.html" class="marca">
+            <img src="img/logo.svg" alt="" class="logo">
+            <h1>Agenda Cultural <span>CG</span></h1>
+        </a>
         <p>Acesse sua conta</p>
 
         <nav>
@@ -59,11 +66,9 @@
                 <button type="submit">Entrar</button>
             </form>
 
-            <p id="mensagem" role="status" aria-live="polite"></p>
-
             <p>
                 Ainda não tem uma conta?
-                <a href="cadastro-evento.html">Cadastre um evento</a>
+                <a href="cadastro-usuario.html">Crie sua conta</a>
             </p>
         </section>
     </main>
@@ -73,14 +78,11 @@
     </footer>
 
     <script>
-        const formulario = document.getElementById("form-login");
-        const mensagem = document.getElementById("mensagem");
-
-        formulario.addEventListener("submit", function(event) {
+        document.getElementById("form-login").addEventListener("submit", function(event) {
             event.preventDefault();
-
-            mensagem.textContent =
-                "Esta é uma demonstração. A autenticação será implementada na versão final.";
+            // Demonstração (só front-end): qualquer e-mail/senha é aceito.
+            try { sessionStorage.setItem("usuarioLogado", "true"); } catch (e) {}
+            window.location.href = "index.html";
         });
     </script>
 

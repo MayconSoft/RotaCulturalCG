@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eventos - Agenda Cultural CG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/logo.svg" type="image/svg+xml">
 </head>
 <body>
 
     <header>
-        <h1>Agenda Cultural CG</h1>
+        <a href="index.html" class="marca">
+            <img src="img/logo.svg" alt="" class="logo">
+            <h1>Agenda Cultural <span>CG</span></h1>
+        </a>
         <p>Encontre eventos culturais em Campo Grande!</p>
 
         <nav>
@@ -17,8 +24,7 @@
             <a href="eventos.html">Eventos</a>
             <a href="#lista-eventos">Lista de eventos</a>
             <a href="cadastro-evento.html">Cadastrar evento</a>
-            <a href="curador.html">Painel do curador</a>
-            <a href="admin.html">Administrador</a>
+            <a href="login-admin.html">Administrador</a>
             <a href="login.html">Entrar</a>
         </nav>
     </header>
@@ -59,11 +65,12 @@
 
             <article class="evento"
                      data-categoria="musica"
-                     data-data="2026-11-15">
+                     data-data="2026-11-08">
 
+                <img src="img/festival.jpg" alt="Show com fogos de artifício no palco do festival" class="capa">
                 <h3>Festival Cultural de Campo Grande</h3>
-                <p>Data: 15/11/2026</p>
-                <p>Local: Parque das Nações Indígenas</p>
+                <p>Data: 08/11/2026</p>
+                <p>Local: Parque Laucídio Coelho</p>
                 <p>Entrada gratuita</p>
 
                 <a href="detalhes-evento.html">Ver detalhes</a>
@@ -73,6 +80,7 @@
                      data-categoria="gastronomia"
                      data-data="2026-11-20">
 
+                <img src="img/gastronomia.jpg" alt="Barraca de comida em feira gastronômica" class="capa">
                 <h3>Feira Gastronômica</h3>
                 <p>Data: 20/11/2026</p>
                 <p>Local: Feira Central</p>
@@ -85,6 +93,7 @@
                      data-categoria="arte"
                      data-data="2026-11-25">
 
+                <img src="img/arte.jpg" alt="Quadros da mostra de arte regional" class="capa">
                 <h3>Mostra de Arte Regional</h3>
                 <p>Data: 25/11/2026</p>
                 <p>Local: Orla Morena</p>
@@ -140,4 +149,16 @@
             mensagemVazia.hidden = encontrados > 0;
         }
 
-        function
+        function limparFiltros() {
+            campoCategoria.value = "todos";
+            campoData.value = "";
+            filtrarEventos();
+        }
+
+        botaoFiltrar.addEventListener("click", filtrarEventos);
+        botaoLimpar.addEventListener("click", limparFiltros);
+    </script>
+    <script src="js/sessao.js"></script>
+
+</body>
+</html>
